@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+# PYTHON_ARGCOMPLETE_OK
 """Convert JSON schema to minimal JSON template"""
 import argparse
 import importlib
 import json
+import argcomplete
 
 
 def create_template(schema, minimal=False):
@@ -60,6 +63,7 @@ def main():
                              'required objects',
                         default=False,
                         action='store_true')
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
     # Import module
