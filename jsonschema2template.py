@@ -69,13 +69,16 @@ def main():
     # Print schema
     if args.print_schema:
         print('Schema:')
-        print(json.dumps(module.__dict__[args.variable], indent=4))
+        print(json.dumps(module.__dict__[args.variable],
+                         indent=4,
+                         sort_keys=True))
         print('\nTemplate:')
 
     # Print template
-    print(
-        json.dumps(create_template(module.__dict__[args.variable]), indent=4)
-    )
+    print(json.dumps(create_template(module.__dict__[args.variable]),
+                     indent=4,
+                     sort_keys=True))
+
 
 if __name__ == "__main__":
     main()
