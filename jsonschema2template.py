@@ -84,7 +84,8 @@ def main():
         print('\nTemplate:')
 
     # Print template
-    print(json.dumps(create_template(module.__dict__[args.variable]),
+    print(json.dumps(create_template(module.__dict__[args.variable],
+                                     minimal=args.minimal),
                      indent=4,
                      sort_keys=True))
 
