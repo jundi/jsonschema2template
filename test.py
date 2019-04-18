@@ -3,7 +3,7 @@ import jsonschema2template
 
 SAMPLE_SCHEMA = {
     "type": "object",
-    "required": ["foo1", "foo2", "foo3", "foo4"],
+    "required": ["foo1", "foo2", "foo3", "foo4", "foo5"],
     "properties": {
         # string object
         "foo1": {
@@ -21,10 +21,18 @@ SAMPLE_SCHEMA = {
             "type": "object"
         },
 
-        # foo4 is required but not defined at all
+        # array object
+        "foo4": {
+            "type": "array",
+            "items": {
+                "type": 'string'
+            }
+        },
+
+        # foo5 is required but not defined at all
 
         # non-required object
-        "foo5": {
+        "foo6": {
             "type": "boolean"
         }
     }
@@ -37,8 +45,9 @@ FULL_TEMPLATE = {
         "bar2": "<undefined_type>"
     },
     "foo3": {},
-    "foo4": "<undefined_type>",
-    "foo5": "<boolean>"
+    "foo4": ["<string>"],
+    "foo5": "<undefined_type>",
+    "foo6": "<boolean>"
 }
 
 MINIMAL_TEMPLATE = {
@@ -48,7 +57,8 @@ MINIMAL_TEMPLATE = {
         "bar2": "<undefined_type>"
     },
     "foo3": {},
-    "foo4": "<undefined_type>"
+    "foo4": ["<string>"],
+    "foo5": "<undefined_type>"
 }
 
 

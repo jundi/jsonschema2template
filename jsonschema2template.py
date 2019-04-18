@@ -37,6 +37,12 @@ def create_template(schema, minimal=False):
                 json_object[name] = create_template(schema['properties'][name])
             except KeyError:
                 json_object[name] = '<undefined_type>'
+
+    elif schema["type"] == 'array':
+        json_object = list()
+        if "items" in schema:
+            json_object.append(create_template(schema['items']))
+
     else:
         json_object = f"<{schema['type']}>"
 
