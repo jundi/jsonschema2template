@@ -25,14 +25,13 @@ def create_template(schema, minimal=False):
             defined_objects = list()
 
         if minimal:
-                objects = required_objects
+            objects = required_objects
         else:
-                objects = set(required_objects+defined_objects)
+            objects = list(set(required_objects+defined_objects))
 
         for name in objects:
             try:
-                json_object[name] \
-                    = create_template(schema['properties'][name])
+                json_object[name] = create_template(schema['properties'][name])
             except KeyError:
                 json_object[name] = '<undefined_type>'
     else:
