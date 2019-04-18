@@ -4,22 +4,37 @@ import importlib
 import json
 
 
-def create_template(schema):
+def create_template(schema, minimal=False):
     """Reads JSON schema and creates template JSON that contains all required
     objects with sample values.
 
     :param dict schema: Schema for JSON object
+    :param bool minimal: If ``True``, add only required objects to template
     :returns dict: JSON object
     """
     if schema["type"] == 'object':
         json_object = dict()
-        if "required" in schema:
-            for name in schema['required']:
-                try:
-                    json_object[name] \
-                        = create_template(schema['properties'][name])
-                except KeyError:
-                    json_object[name] = '<undefined_type>'
+
+        try:
+            required_objects = schema['required']
+        except KeyError:
+            required_objects = list()
+        try:
+            defined_objects = list(schema['properties'].keys())
+        except KeyError:
+            defined_objects = list()
+
+        if minimal:
+                objects = required_objects
+        else:
+                objects = set(required_objects+defined_objects)
+
+        for name in objects:
+            try:
+                json_object[name] \
+                    = create_template(schema['properties'][name])
+            except KeyError:
+                json_object[name] = '<undefined_type>'
     else:
         json_object = f"<{schema['type']}>"
 
@@ -39,6 +54,11 @@ def main():
                         help='The varible that contains the schema')
     parser.add_argument('--print-schema',
                         help='Also print the schema (for debugging)',
+                        default=False,
+                        action='store_true')
+    parser.add_argument('--minimal',
+                        help='Print minimal template that contains only '
+                             'required objects',
                         default=False,
                         action='store_true')
     args = parser.parse_args()
