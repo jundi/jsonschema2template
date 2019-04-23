@@ -34,6 +34,11 @@ SAMPLE_SCHEMA = {
         # non-required object
         "foo6": {
             "type": "boolean"
+        },
+
+        # non-required array
+        "foo7": {
+            "type": "array",
         }
     }
 }
@@ -47,7 +52,8 @@ FULL_TEMPLATE = {
     "foo3": {},
     "foo4": ["<string>"],
     "foo5": "<undefined_type>",
-    "foo6": "<boolean>"
+    "foo6": "<boolean>",
+    "foo7": []
 }
 
 MINIMAL_TEMPLATE = {
